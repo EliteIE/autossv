@@ -192,14 +192,21 @@ select {
    ---------------------------------------------------------- */
 .site-header {
   position: sticky;
-  top: 0;
-  z-index: 50;
-  background: var(--color-canvas);
-  border-bottom: 1px solid var(--color-hairline);
-  height: var(--header-height);
+  top: 16px;
+  z-index: 100;
+  margin: 16px auto 0;
+  width: min(1280px, calc(100% - 32px));
+  height: auto;
+  min-height: 64px;
+  padding: 12px 24px;
+  background: #ffffff;
+  border: none;
+  border-radius: 0; /* sharp - Ferrari */
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
-  padding: 0 var(--space-lg);
+  justify-content: space-between;
+  gap: 20px;
 }
 
 .site-header > .site-shell,
@@ -211,6 +218,24 @@ select {
   align-items: center;
   justify-content: space-between;
   gap: var(--space-md);
+}
+
+/* Ferrari signature: 2px Rosso Corsa line at top of page */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-primary);
+  z-index: 101;
+  pointer-events: none;
+}
+
+/* Spacing under sticky island */
+.site-shell main {
+  padding-top: 32px;
 }
 
 .brand-mark {
@@ -227,8 +252,8 @@ select {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-primary);
-  color: var(--color-ink);
+  background: #181818;
+  color: #ffffff;
   font-weight: 700;
   font-size: 16px;
   letter-spacing: 1px;
@@ -243,7 +268,7 @@ select {
 .brand-mark__icon {
   font-size: 18px;
   font-weight: 700;
-  color: var(--color-ink);
+  color: #ffffff;
   letter-spacing: 1px;
 }
 
@@ -258,7 +283,7 @@ select {
   font-weight: 600;
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  color: var(--color-ink);
+  color: #181818;
 }
 
 .brand-mark__text small {
@@ -266,7 +291,7 @@ select {
   font-weight: 500;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: var(--color-body);
+  color: #666666;
   margin-top: 2px;
 }
 
@@ -282,7 +307,7 @@ select {
   line-height: 1.4;
   letter-spacing: 0.65px;
   text-transform: uppercase;
-  color: var(--color-ink);
+  color: #181818;
   padding: 12px 0;
   position: relative;
   transition: color 0.2s ease;
@@ -452,37 +477,41 @@ select {
 }
 
 .intro-strip__stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: var(--space-xs);
-  margin-top: var(--space-xl);
-  padding-top: var(--space-lg);
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
   border-top: 1px solid var(--color-hairline);
 }
 
 .quick-stat {
   background: var(--color-canvas-elevated);
-  padding: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
   border: 1px solid var(--color-hairline);
   border-radius: var(--radius-none);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xxs);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-sm);
+  align-items: center;
 }
 
 .quick-stat strong {
-  font-size: 32px;
+  font-size: 14px;
   font-weight: 700;
   line-height: 1;
-  letter-spacing: -0.64px;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
   color: var(--color-ink);
+  white-space: nowrap;
 }
 
 .quick-stat span {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1.1px;
-  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  line-height: 1.4;
   color: var(--color-body);
 }
 
@@ -667,11 +696,12 @@ select {
 }
 
 .inventory-slide__body {
-  padding: var(--space-sm);
+  padding: var(--space-sm) var(--space-md) var(--space-md);
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
-  flex: 1 1 auto;
+  flex: 1;
+  min-height: 0;
 }
 
 .inventory-slide__heading {
@@ -699,24 +729,33 @@ select {
   font-size: 13px;
   line-height: 1.5;
   color: var(--color-body);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .inventory-slide__footer {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
   gap: var(--space-xs);
   margin-top: auto;
   padding-top: var(--space-xs);
   border-top: 1px solid var(--color-hairline);
 }
 
+.inventory-slide__footer .button {
+  width: 100%;
+  justify-content: center;
+}
+
 .inventory-slide__hook {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1.1px;
-  text-transform: uppercase;
-  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--color-body);
+  line-height: 1.45;
 }
 
 /* ----------------------------------------------------------
@@ -1833,11 +1872,19 @@ select {
 
 @media (max-width: 768px) {
   .site-header {
-    padding: 0 var(--space-sm);
+    width: calc(100% - 16px);
+    padding: 10px 14px;
+    gap: 12px;
   }
 
   .main-nav {
-    gap: var(--space-sm);
+    display: none;  /* hamburger não implementado, então hide */
+  }
+
+  .site-header .button {
+    padding: 8px 16px;
+    min-height: 40px;
+    font-size: 12px;
   }
 
   .main-nav a {
